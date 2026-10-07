@@ -1,12 +1,10 @@
-# Home Server Quadlets Library
+# Quadlets Library
 
-Reusable Podman Quadlet templates maintained by the Home Server Project.
+Reusable Podman Quadlet templates for home servers and self-hosted systems.
 
 ## Purpose
 
-This repository is a shared library of inactive Quadlet templates for home servers and small self-hosted systems. The templates are intended to be easy to read, copy, customize, and maintain.
-
-The initial library was generalized from Quadlets validated in the Passive Black Box project. Product-specific names and paths are removed here, while useful validation notes are kept in the service documentation.
+This repository is a shared library of inactive Quadlet templates. The templates are intended to be easy to read, copy, customize, and maintain.
 
 ## Usage contract
 
@@ -32,11 +30,7 @@ See [CATALOG.md](./CATALOG.md) for the complete service index.
 A service directory can contain:
 
 - the Quadlet template;
-- `docs/` with deployment and validation notes;
+- `docs/` with deployment notes;
 - `examples/` with safe example configuration.
 
-The library favors simple copy-and-customize templates over a deployment framework. Operating-system projects such as Rose and Gina can embed the complete library as inactive templates and let the local administrator choose what to activate.
-
-## Validation
-
-Validation notes describe what was tested on the original deployment and are not a promise that every template has been tested on every distribution, network, or storage layout. Revalidate the local copy after changing paths, network exposure, privileges, or application configuration.
+The library favors simple copy-and-customize templates over a deployment framework. Any system with Podman Quadlet support can consume the templates independently.
