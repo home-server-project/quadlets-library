@@ -8,7 +8,7 @@ After=network-online.target
 RequiresMountsFor=/var/lib/caddy
 
 [Container]
-Image=ghcr.io/highwaytoit/caddy-cloudflare-build:latest
+Image=ghcr.io/home-server-project/caddy-cloudflare:stable
 ContainerName=caddy
 Network=services.network
 NetworkAlias=caddy
