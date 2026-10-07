@@ -9,5 +9,3 @@ Caddyfile: `/etc/caddy/Caddyfile`.
 Persistent data: `/var/lib/caddy/data` and `/var/lib/caddy/config`.
 
 Replace `@@CADDY_BIND_ADDRESS@@` before activation. The supplied example keeps HTTPS on port 8443 to make the bind choice explicit.
-
-Origin validation: the equivalent Passive Black Box deployment used Cloudflare DNS-01, persistent certificate storage, SELinux enforcing, a private overlay-network bind, and survived a full host reboot. The container build may move to a Home Server Project containers repository later without changing this library layout.
