@@ -1,0 +1,9 @@
+# Shared Quadlet network template.
+# Copy and customize before activation.
+
+[Unit]
+Description=Shared private network for Quadlet services
+
+[Network]
+NetworkName=quadlet-services
+Driver=bridge

@@ -1,0 +1,20 @@
+[Unit]
+Description=VictoriaMetrics
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/victoriametrics
+
+[Container]
+Image=docker.io/victoriametrics/victoria-metrics:latest
+ContainerName=victoriametrics
+Network=services.network
+NetworkAlias=victoriametrics
+Volume=/var/lib/victoriametrics:/victoria-metrics-data:Z
+Exec=-storageDataPath=/victoria-metrics-data -httpListenAddr=:8428
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target

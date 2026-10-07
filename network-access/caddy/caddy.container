@@ -1,0 +1,29 @@
+# Optional Caddy build with Cloudflare DNS-01 support.
+# Copy and customize before activation.
+
+[Unit]
+Description=Caddy reverse proxy
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/caddy
+
+[Container]
+Image=ghcr.io/highwaytoit/caddy-cloudflare-build:latest
+ContainerName=caddy
+Network=services.network
+NetworkAlias=caddy
+EnvironmentFile=/etc/caddy/caddy.env
+Volume=/etc/caddy/Caddyfile:/etc/caddy/Caddyfile:ro,Z
+Volume=/var/lib/caddy/data:/data:Z
+Volume=/var/lib/caddy/config:/config:Z
+
+# Replace this address before activation.
+PublishPort=@@CADDY_BIND_ADDRESS@@:8443:443/tcp
+PublishPort=@@CADDY_BIND_ADDRESS@@:8443:443/udp
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target

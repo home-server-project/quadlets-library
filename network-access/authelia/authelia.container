@@ -1,0 +1,23 @@
+[Unit]
+Description=Authelia authentication service
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/authelia
+
+[Container]
+Image=docker.io/authelia/authelia:latest
+ContainerName=authelia
+Network=services.network
+NetworkAlias=authelia
+EnvironmentFile=/etc/authelia/authelia.env
+Volume=/etc/authelia/config:/config:ro,Z
+Volume=/etc/authelia/secrets:/secrets:ro,Z
+Volume=/var/lib/authelia:/data:Z
+PublishPort=127.0.0.1:9091:9091/tcp
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target

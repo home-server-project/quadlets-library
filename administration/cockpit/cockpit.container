@@ -1,0 +1,22 @@
+# Follows the upstream Cockpit ws latest tag.
+# Recommended: copy this file into /etc/containers/systemd/ and customize the local copy.
+
+[Unit]
+Description=Cockpit web console
+Wants=network-online.target
+After=network-online.target sshd.service
+
+[Container]
+Image=quay.io/cockpit/ws:latest
+ContainerName=cockpit-ws
+Volume=/:/host
+Environment=NAME=cockpit-ws
+Exec=/container/label-run
+PodmanArgs=--privileged --pid=host
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target

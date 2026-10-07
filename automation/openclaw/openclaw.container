@@ -1,0 +1,43 @@
+[Unit]
+Description=OpenClaw request-driven diagnostic assistant
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/openclaw /var/lib/openclaw-auth
+
+[Container]
+Image=ghcr.io/openclaw/openclaw:latest
+ContainerName=openclaw
+Network=services.network
+NetworkAlias=openclaw
+EnvironmentFile=/etc/openclaw/openclaw.env
+Environment=HOME=/home/node
+Environment=OPENCLAW_HOME=/home/node
+Environment=OPENCLAW_STATE_DIR=/home/node/.openclaw
+Environment=OPENCLAW_CONFIG_PATH=/home/node/.openclaw/openclaw.json
+Environment=OPENCLAW_CONFIG_DIR=/home/node/.openclaw
+Environment=OPENCLAW_WORKSPACE_DIR=/home/node/.openclaw/workspace
+Environment=OPENCLAW_GATEWAY_PORT=18789
+Environment=OPENCLAW_DISABLE_BONJOUR=1
+Environment=OPENCLAW_NO_RESPAWN=1
+Environment=OPENCLAW_CONFIG_READONLY=1
+Environment=TZ=UTC
+Volume=/var/lib/openclaw:/home/node/.openclaw:Z
+Volume=/var/lib/openclaw-auth:/home/node/.config/openclaw:Z
+DropCapability=all
+NoNewPrivileges=true
+Memory=2g
+PidsLimit=512
+RunInit=true
+HealthCmd=node dist/docker-healthcheck.js
+HealthInterval=30s
+HealthTimeout=10s
+HealthRetries=5
+HealthStartPeriod=20s
+Exec=node openclaw.mjs gateway --bind lan --port 18789
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=300
+
+[Install]
+WantedBy=multi-user.target
